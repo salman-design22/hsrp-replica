@@ -1,657 +1,581 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BOOK-MY-HSRP | High Security Registration Plate</title>
-  <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-   <style>
-      :root {
-          --primary-yellow: #fdd835; /* Similar to the yellow blocks */
-          --primary-blue: #3949ab;   /* Similar to the blue blocks */
-          --light-gray: #f8f8f8;
-          --text-color: #333;
-      }
-
-
-
-
-      body {
-          font-family: 'Inter', sans-serif;
-          background-color: var(--light-gray);
-          color: var(--text-color);
-      }
-
-
-
-
-      /* Custom style for the stepper/sidebar */
-      .sidebar-step {
-          transition: background-color 0.3s, color 0.3s;
-          cursor: pointer;
-          padding: 1.5rem 1.5rem 1.5rem 2rem;
-          font-weight: 600;
-          color: #555;
-          border-bottom: 1px solid #eee;
-      }
-
-
-
-
-      .sidebar-step.active {
-          background-color: var(--primary-blue);
-          color: white;
-          position: relative;
-      }
-
-
-
-
-      /* Styling the active step's pointer (trapezoid) */
-      .sidebar-step.active::after {
-          content: '';
-          position: absolute;
-          right: -14px;
-          top: 0;
-          width: 0;
-          height: 0;
-          border-top: 24px solid transparent;
-          border-bottom: 24px solid transparent;
-          border-left: 14px solid var(--primary-blue);
-          z-index: 10;
-      }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOK-MY-HSRP | High Security Registration Plate</title>
     
-      .sidebar-step.completed {
-          background-color: #e8f5e9;
-          color: #388e3c;
-      }
-      .sidebar-step.completed .fa-check-circle {
-          display: inline-block;
-      }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
+    <style>
+        :root {
+            --primary-yellow: #fdd835; /* Similar to the yellow blocks */
+            --primary-blue: #3949ab;   /* Similar to the blue blocks */
+            --light-gray: #f8f8f8;
+            --text-color: #333;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
 
+        /* Custom style for the stepper/sidebar */
+        .sidebar-step {
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            padding: 1.5rem 1.5rem 1.5rem 2rem;
+            font-weight: 600;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
 
+        .sidebar-step.active {
+            background-color: var(--primary-blue);
+            color: white;
+            position: relative;
+        }
 
-      .sidebar-step .fa-check-circle {
-          display: none;
-          margin-left: 0.5rem;
-      }
+        /* Styling the active step's pointer (trapezoid) */
+        .sidebar-step.active::after {
+            content: '';
+            position: absolute;
+            right: -14px;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-top: 24px solid transparent;
+            border-bottom: 24px solid transparent;
+            border-left: 14px solid var(--primary-blue);
+            z-index: 10;
+        }
+       
+        .sidebar-step.completed {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        .sidebar-step.completed .fa-check-circle {
+            display: inline-block;
+        }
 
+        .sidebar-step .fa-check-circle {
+            display: none;
+            margin-left: 0.5rem;
+        }
 
-
-
-      /* Custom box styles for homepage */
-      .service-box {
-          min-height: 180px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: flex-start;
-          padding: 1.5rem;
-          border-radius: 0.5rem;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transition: transform 0.2s;
-      }
-      .service-box:hover {
-          transform: translateY(-4px);
-      }
-  </style>
+        /* Custom box styles for homepage */
+        .service-box {
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .service-box:hover {
+            transform: translateY(-4px);
+        }
+    </style>
 </head>
 <body class="min-h-screen">
 
-
-
-
-  <!-- Header --><header class="bg-white shadow-md border-b-4 border-yellow-500 sticky top-0 z-20">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div class="flex items-center space-x-6">
-              <a href="#" class="text-xl font-extrabold tracking-tight border-2 border-black px-2 py-1 rounded-sm">
-                  BOOK-MY-HSRP
-              </a>
-          </div>
-          <div class="flex items-center space-x-6 text-gray-600 font-semibold">
-              <nav class="hidden md:flex space-x-6">
-                  <a href="#" class="hover:text-blue-700">FAQs</a>
-                  <a href="#" class="hover:text-blue-700">About</a>
-                  <a href="#" class="hover:text-blue-700">Contact Us</a>
-              </nav>
-              <div class="hidden sm:block">
-                  <img src="https://placehold.co/120x40/fff/333?text=ROSMERTA+LIMITED" alt="Company Logo" class="h-10 border border-gray-300 rounded-sm" onerror="this.onerror=null; this.src='https://placehold.co/120x40/fff/333?text=COMPANY+LOGO';" />
-              </div>
-          </div>
-      </div>
-  </header>
-
-
-
-
-  <!-- Global Message Box --><div id="message-box" class="fixed top-0 left-1/2 -translate-x-1/2 mt-4 z-50 p-4 rounded-lg text-white font-bold shadow-xl hidden"></div>
-
-
-
-
-  <!-- Main Content Area --><main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
     
-      <!-- Home Page (Initial View) --><section id="homepage" class="page-view">
-          <div class="flex justify-center my-8">
-              <!-- IMAGE UPDATED with the new URL provided by the user --><img
-                  src="https://i.postimg.cc/3J7bB0vD/indian-national-emblem-ashokas-lion-600nw-2534959015.webp"
-                  alt="National Emblem (Ashok Stambh)"
-                  class="w-80 h-32 rounded-lg shadow-xl object-contain"
-                  onerror="this.onerror=null; this.src='https://placehold.co/320x128/fff/333?text=National+Emblem';"
-              />
-          </div>
+    <header class="bg-white shadow-md border-b-4 border-yellow-500 sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-xl font-extrabold tracking-tight border-2 border-black px-2 py-1 rounded-sm">
+                    BOOK-MY-HSRP
+                </a>
+            </div>
+            <div class="flex items-center space-x-6 text-gray-600 font-semibold">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="hover:text-blue-700">FAQs</a>
+                    <a href="#" class="hover:text-blue-700">About</a>
+                    <a href="#" class="hover:text-blue-700">Contact Us</a>
+                </nav>
+                <div class="hidden sm:block">
+                    <img src="https://placehold.co/120x40/fff/333?text=ROSMERTA+LIMITED" alt="Company Logo" class="h-10 border border-gray-300 rounded-sm" onerror="this.onerror=null; this.src='https://placehold.co/120x40/fff/333?text=COMPANY+LOGO';" />
+                </div>
+            </div>
+        </div>
+    </header>
 
+    
+    <div id="message-box" class="fixed top-0 left-1/2 -translate-x-1/2 mt-4 z-50 p-4 rounded-lg text-white font-bold shadow-xl hidden"></div>
 
+    
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+       
+        
+        <section id="homepage" class="page-view">
+            <div class="flex justify-center my-8">
+                
+                <img 
+                    src="https://i.postimg.cc/3J7bB0vD/indian-national-emblem-ashokas-lion-600nw-2534959015.webp" 
+                    alt="National Emblem (Ashok Stambh)" 
+                    class="w-80 h-32 rounded-lg shadow-xl object-contain"
+                    onerror="this.onerror=null; this.src='https://placehold.co/320x128/fff/333?text=National+Emblem';" 
+                />
+            </div>
 
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+               
+                
+                <div class="service-box bg-yellow-400 text-gray-900">
+                    <h3 class="text-xl font-bold mb-4">HSRP with Colour Sticker</h3>
+                    <button onclick="showBookingForm()" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
+                        Book →
+                    </button>
+                </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-            
-              <!-- Yellow Boxes --><div class="service-box bg-yellow-400 text-gray-900">
-                  <h3 class="text-xl font-bold mb-4">HSRP with Colour Sticker</h3>
-                  <button onclick="showBookingForm()" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
-                      Book →
-                  </button>
-              </div>
+                <div class="service-box bg-yellow-400 text-gray-900">
+                    <h3 class="text-xl font-bold mb-4">Plate For Electric Vehicle</h3>
+                    <button onclick="showBookingForm()" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
+                        Book →
+                    </button>
+                </div>
 
+                <div class="service-box bg-yellow-400 text-gray-900">
+                    <h3 class="text-xl font-bold mb-4">Only Colour Sticker</h3>
+                    <button onclick="showBookingForm()" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
+                        Book →
+                    </button>
+                </div>
 
+                
+                <div class="service-box bg-blue-700 text-white">
+                    <h3 class="text-xl font-bold mb-4">Replacement/Retain/Transfer</h3>
+                    <button onclick="showBookingForm()" class="px-4 py-2 bg-white text-blue-700 rounded-md font-semibold hover:bg-gray-200 transition duration-150">
+                        Book →
+                    </button>
+                </div>
+               
+                <div class="service-box bg-blue-700 text-white">
+                    <h3 class="text-xl font-bold mb-4">Plate For Tractor & Trailer</h3>
+                    <button onclick="showBookingForm()" class="px-4 py-2 bg-white text-blue-700 rounded-md font-semibold hover:bg-gray-200 transition duration-150">
+                        Book →
+                    </button>
+                </div>
 
+                <div class="service-box bg-blue-700 text-white">
+                    <h3 class="text-xl font-bold mb-4">Track Your Order</h3>
+                    <button class="px-4 py-2 bg-white text-blue-700 rounded-md font-semibold hover:bg-gray-200 transition duration-150">
+                        Track →
+                    </button>
+                </div>
 
-              <div class="service-box bg-yellow-400 text-gray-900">
-                  <h3 class="text-xl font-bold mb-4">Plate For Electric Vehicle</h3>
-                  <button onclick="showBookingForm()" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
-                      Book →
-                  </button>
-              </div>
+                <div class="service-box bg-yellow-400 text-gray-900 lg:col-start-2 lg:col-end-3">
+                    <h3 class="text-xl font-bold mb-4">Grievance Redressal</h3>
+                    <button class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
+                        Enquiry →
+                    </button>
+                </div>
 
+            </div>
+        </section>
 
+        
+        <section id="booking-page" class="hidden page-view bg-white p-4 sm:p-8 rounded-lg shadow-xl">
+            <div class="md:grid md:grid-cols-4 gap-8">
+                
+                <div class="md:col-span-1 mb-6 md:mb-0">
+                    <div id="sidebar-steps" class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                        <div id="step-1-link" class="sidebar-step active" data-step="1">
+                            Vehicle Information <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div id="step-2-link" class="sidebar-step" data-step="2">
+                            Fitment Location <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div id="step-3-link" class="sidebar-step" data-step="3">
+                            Booking Summary <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
 
-
-              <div class="service-box bg-yellow-400 text-gray-900">
-                  <h3 class="text-xl font-bold mb-4">Only Colour Sticker</h3>
-                  <button onclick="showBookingForm()" class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
-                      Book →
-                  </button>
-              </div>
-
-
-
-
-              <!-- Blue Boxes --><div class="service-box bg-blue-700 text-white">
-                  <h3 class="text-xl font-bold mb-4">Replacement/Retain/Transfer</h3>
-                  <button onclick="showBookingForm()" class="px-4 py-2 bg-white text-blue-700 rounded-md font-semibold hover:bg-gray-200 transition duration-150">
-                      Book →
-                  </button>
-              </div>
-            
-              <div class="service-box bg-blue-700 text-white">
-                  <h3 class="text-xl font-bold mb-4">Plate For Tractor & Trailer</h3>
-                  <button onclick="showBookingForm()" class="px-4 py-2 bg-white text-blue-700 rounded-md font-semibold hover:bg-gray-200 transition duration-150">
-                      Book →
-                  </button>
-              </div>
-
-
-
-
-              <div class="service-box bg-blue-700 text-white">
-                  <h3 class="text-xl font-bold mb-4">Track Your Order</h3>
-                  <button class="px-4 py-2 bg-white text-blue-700 rounded-md font-semibold hover:bg-gray-200 transition duration-150">
-                      Track →
-                  </button>
-              </div>
-
-
-
-
-              <div class="service-box bg-yellow-400 text-gray-900 lg:col-start-2 lg:col-end-3">
-                  <h3 class="text-xl font-bold mb-4">Grievance Redressal</h3>
-                  <button class="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition duration-150">
-                      Enquiry →
-                  </button>
-              </div>
-
-
-
-
-          </div>
-      </section>
-
-
-
-
-      <!-- Booking Form Page --><section id="booking-page" class="hidden page-view bg-white p-4 sm:p-8 rounded-lg shadow-xl">
-          <div class="md:grid md:grid-cols-4 gap-8">
-              <!-- Left Sidebar (Steps) --><div class="md:col-span-1 mb-6 md:mb-0">
-                  <div id="sidebar-steps" class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
-                      <div id="step-1-link" class="sidebar-step active" data-step="1">
-                          Vehicle Information <i class="fas fa-check-circle"></i>
-                      </div>
-                      <div id="step-2-link" class="sidebar-step" data-step="2">
-                          Fitment Location <i class="fas fa-check-circle"></i>
-                      </div>
-                      <div id="step-3-link" class="sidebar-step" data-step="3">
-                          Booking Summary <i class="fas fa-check-circle"></i>
-                      </div>
-                  </div>
-              </div>
-
-
-
-
-              <!-- Right Form Area (Dynamic Content) --><div class="md:col-span-3">
-                  <form id="booking-form">
-                    
-                      <!-- Step 1: Vehicle Information --><div id="step-1" class="form-step">
-                          <h2 class="text-2xl font-bold mb-6 text-blue-700">Vehicle Information</h2>
-                          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            
-                              <div class="col-span-1">
-                                  <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State*</label>
-                                  <select id="state" name="state" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                                      <option value="">Select Vehicle Registration State</option>
-                                  </select>
-                              </div>
-
-
-
-
-                              <div class="col-span-1">
-                                  <label for="reg-number" class="block text-sm font-medium text-gray-700 mb-1">Registration Number*</label>
-                                  <input type="text" id="reg-number" name="reg-number" placeholder="Enter Vehicle Registration Number" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 uppercase">
-                              </div>
-
-
-
-
-                              <div class="col-span-1">
-                                  <label for="chassis-number" class="block text-sm font-medium text-gray-700 mb-1">Chassis Number* (Last 5 digits)</label>
-                                  <!-- pattern remains the same for functionality: min 5 alphanumeric --><input type="text" id="chassis-number" name="chassis-number" placeholder="Chassis Number" pattern="[a-zA-Z0-9]{5,}" title="Chassis number must be at least 5 alphanumeric characters" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 uppercase">
-                              </div>
-
-
-
-
-                              <div class="col-span-1">
-                                  <label for="engine-number" class="block text-sm font-medium text-gray-700 mb-1">Engine Number* (Last 5 digits)</label>
-                                  <!-- pattern remains the same for functionality: min 5 alphanumeric --><input type="text" id="engine-number" name="engine-number" placeholder="Engine Number" pattern="[a-zA-Z0-9]{5,}" title="Engine number must be at least 5 alphanumeric characters" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 uppercase">
-                              </div>
-
-
-
-
-                              <div class="col-span-1">
-                                  <label for="vehicle-type" class="block text-sm font-medium text-gray-700 mb-1">Choose Vehicle*</label>
-                                  <select id="vehicle-type" name="vehicle-type" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                                      <option value="">Vehicle Type</option>
-                                      <option value="2W">2 Wheeler</option>
-                                      <option value="4W">4 Wheeler/Car</option>
-                                      <option value="HV">Heavy Vehicle/Bus/Truck</option>
-                                  </select>
-                              </div>
-                          </div>
+                
+                <div class="md:col-span-3">
+                    <form id="booking-form">
+                       
                         
-                          <div class="mt-8">
-                              <button type="button" onclick="nextStep(1)" class="px-6 py-3 bg-blue-700 text-white font-bold rounded-md shadow-lg hover:bg-blue-800 transition duration-150">
-                                  Next
-                              </button>
-                          </div>
-                      </div>
+                        <div id="step-1" class="form-step">
+                            <h2 class="text-2xl font-bold mb-6 text-blue-700">Vehicle Information</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                               
+                                <div class="col-span-1">
+                                    <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State*</label>
+                                    <select id="state" name="state" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Select Vehicle Registration State</option>
+                                    </select>
+                                </div>
 
+                                <div class="col-span-1">
+                                    <label for="reg-number" class="block text-sm font-medium text-gray-700 mb-1">Registration Number*</label>
+                                    <input type="text" id="reg-number" name="reg-number" placeholder="Enter Vehicle Registration Number" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 uppercase">
+                                </div>
 
+                                <div class="col-span-1">
+                                    <label for="chassis-number" class="block text-sm font-medium text-gray-700 mb-1">Chassis Number* (Last 5 digits)</label>
+                                    
+                                    <input type="text" id="chassis-number" name="chassis-number" placeholder="Chassis Number" pattern="[a-zA-Z0-9]{5,}" title="Chassis number must be at least 5 alphanumeric characters" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 uppercase">
+                                </div>
 
+                                <div class="col-span-1">
+                                    <label for="engine-number" class="block text-sm font-medium text-gray-700 mb-1">Engine Number* (Last 5 digits)</label>
+                                    
+                                    <input type="text" id="engine-number" name="engine-number" placeholder="Engine Number" pattern="[a-zA-Z0-9]{5,}" title="Engine number must be at least 5 alphanumeric characters" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 uppercase">
+                                </div>
 
-                      <!-- Step 2: Fitment Location/Personal Info --><div id="step-2" class="form-step hidden">
-                          <h2 class="text-2xl font-bold mb-6 text-blue-700">Fitment Location (Personal Information)</h2>
-                          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            
-                              <div class="col-span-1">
-                                  <label for="p-name" class="block text-sm font-medium text-gray-700 mb-1">Name*</label>
-                                  <input type="text" id="p-name" name="p-name" placeholder="Enter Name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                              </div>
+                                <div class="col-span-1">
+                                    <label for="vehicle-type" class="block text-sm font-medium text-gray-700 mb-1">Choose Vehicle*</label>
+                                    <select id="vehicle-type" name="vehicle-type" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Vehicle Type</option>
+                                        <option value="2W">2 Wheeler</option>
+                                        <option value="4W">4 Wheeler/Car</option>
+                                        <option value="HV">Heavy Vehicle/Bus/Truck</option>
+                                    </select>
+                                </div>
+                            </div>
+                           
+                            <div class="mt-8">
+                                <button type="button" onclick="nextStep(1)" class="px-6 py-3 bg-blue-700 text-white font-bold rounded-md shadow-lg hover:bg-blue-800 transition duration-150">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
 
-
-
-
-                              <div class="col-span-1">
-                                  <label for="p-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone*</label>
-                                  <input type="tel" id="p-phone" name="p-phone" pattern="[0-9]{10}" placeholder="Enter Phone Number" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                              </div>
-
-
-
-
-                              <div class="col-span-1">
-                                  <label for="p-email" class="block text-sm font-medium text-gray-700 mb-1">Email*</label>
-                                  <input type="email" id="p-email" name="p-email" placeholder="Enter Email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                              </div>
-
-
-
-
-                              <div class="col-span-1">
-                                  <label for="p-address" class="block text-sm font-medium text-gray-700 mb-1">Address*</label>
-                                  <input type="text" id="p-address" name="p-address" placeholder="Address" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                              </div>
-                          </div>
-
-
-
-
-                          <div class="mt-8 flex space-x-4">
-                              <button type="button" onclick="prevStep(2)" class="px-6 py-3 bg-gray-500 text-white font-bold rounded-md shadow-lg hover:bg-gray-600 transition duration-150">
-                                  <i class="fas fa-arrow-left mr-2"></i> Back
-                              </button>
-                              <button type="button" onclick="nextStep(2)" class="px-6 py-3 bg-blue-700 text-white font-bold rounded-md shadow-lg hover:bg-blue-800 transition duration-150">
-                                  Next
-                              </button>
-                          </div>
-                      </div>
-
-
-
-
-                      <!-- Step 3: Booking Summary / Payment Page --><div id="step-3" class="form-step hidden">
-                          <h2 class="text-2xl font-bold mb-6 text-blue-700">Booking Summary & Payment</h2>
                         
-                          <!-- Payment Pending Banner --><div class="text-center bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-8 rounded-lg shadow-inner">
-                              <p class="text-xl font-bold">HSR Plate Booking Pending – Complete Payment Now to Confirm Your Booking</p>
-                              <p class="text-sm mt-1">HSR Plate बुकिंग पेंडिंग है – जब तक भुगतान नहीं करेंगे, बुकिंग पूरी नहीं होगी</p>
-                          </div>
+                        <div id="step-2" class="form-step hidden">
+                            <h2 class="text-2xl font-bold mb-6 text-blue-700">Fitment Location (Personal Information)</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                               
+                                <div class="col-span-1">
+                                    <label for="p-name" class="block text-sm font-medium text-gray-700 mb-1">Name*</label>
+                                    <input type="text" id="p-name" name="p-name" placeholder="Enter Name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                </div>
 
+                                <div class="col-span-1">
+                                    <label for="p-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone*</label>
+                                    <input type="tel" id="p-phone" name="p-phone" pattern="[0-9]{10}" placeholder="Enter Phone Number" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                </div>
 
+                                <div class="col-span-1">
+                                    <label for="p-email" class="block text-sm font-medium text-gray-700 mb-1">Email*</label>
+                                    <input type="email" id="p-email" name="p-email" placeholder="Enter Email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                </div>
 
+                                <div class="col-span-1">
+                                    <label for="p-address" class="block text-sm font-medium text-gray-700 mb-1">Address*</label>
+                                    <input type="text" id="p-address" name="p-address" placeholder="Address" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                            </div>
 
-                          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="mt-8 flex space-x-4">
+                                <button type="button" onclick="prevStep(2)" class="px-6 py-3 bg-gray-500 text-white font-bold rounded-md shadow-lg hover:bg-gray-600 transition duration-150">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="button" onclick="nextStep(2)" class="px-6 py-3 bg-blue-700 text-white font-bold rounded-md shadow-lg hover:bg-blue-800 transition duration-150">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+
+                        
+                        <div id="step-3" class="form-step hidden">
+                            <h2 class="text-2xl font-bold mb-6 text-blue-700">Booking Summary & Payment</h2>
+                           
                             
-                              <!-- Payment QR Code Section --><div class="md:col-span-1 bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200">
-                                  <div class="text-center mb-4">
-                                      <p class="text-2xl font-bold">Scan and Pay</p>
-                                      <p class="text-3xl font-extrabold text-green-700 mt-2">₹1,198</p>
-                                  </div>
-                                  <div class="flex justify-center mb-6">
-                                      <!-- Placeholder for QR Code (100x100) --><img src="https://i.postimg.cc/FRCsZXPz/instamojo-payment-qr.png" alt="QR Code" class="w-full max-w-xs border-2 border-gray-200 rounded-lg p-2" />
-                                  </div>
-                                  <p class="text-center text-sm font-medium text-gray-600">Scan and pay with any BHIM UPI app</p>
-                                  <div class="flex justify-center space-x-4 mt-4 text-3xl text-gray-500">
-                                      <i class="fab fa-cc-visa"></i>
-                                      <i class="fab fa-google-pay"></i>
-                                      <i class="fab fa-amazon-pay"></i>
-                                      <!-- Add more payment icons here --></div>
-                              </div>
+                            <div class="text-center bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-8 rounded-lg shadow-inner">
+                                <p class="text-xl font-bold">HSR Plate Booking Pending – Complete Payment Now to Confirm Your Booking</p>
+                                <p class="text-sm mt-1">HSR Plate बुकिंग पेंडिंग है – जब तक भुगतान नहीं करेंगे, बुकिंग पूरी नहीं होगी</p>
+                            </div>
 
-
-
-
-                              <!-- Final Breakup Section --><div class="md:col-span-1 bg-gray-50 p-6 rounded-lg shadow-lg border-2 border-gray-200 flex flex-col justify-between">
-                                  <div>
-                                      <h3 class="text-xl font-bold mb-4">Final Breakup</h3>
-                                      <div class="space-y-2 text-lg">
-                                          <div class="flex justify-between">
-                                              <span>Base Price</span>
-                                              <span id="base-price">₹998</span>
-                                          </div>
-                                          <div class="flex justify-between">
-                                              <span>GST (18%)</span>
-                                              <span id="gst-amount">₹179.64</span>
-                                          </div>
-                                          <div class="flex justify-between border-b pb-2">
-                                              <span>Processing Fee (2.036%)</span>
-                                              <span id="processing-fee">₹20.36</span>
-                                          </div>
-                                          <div class="flex justify-between pt-2 text-2xl font-extrabold text-blue-700">
-                                              <span>Total</span>
-                                              <span id="total-amount">₹1,198</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-
-
-
-
-                              <!-- Upload Screenshot Section --><div class="md:col-span-1 bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200">
-                                  <h3 class="text-xl font-bold mb-4">Kindly upload the payment screenshot for complete booking</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                               
                                 
-                                  <label for="payment-screenshot" id="upload-box" class="border-4 border-dashed border-purple-300 rounded-lg p-8 text-center cursor-pointer hover:bg-purple-50 transition duration-150">
-                                      <p class="text-blue-600 font-semibold mb-2">Click here to upload the screenshot</p>
-                                      <p class="text-xs text-gray-500">(Max. File size: 25 MB)</p>
-                                      <input type="file" id="payment-screenshot" accept="image/png, image/jpeg, image/jpg" class="hidden" onchange="updateUploadBox(this)">
-                                  </label>
-                                  <p class="text-xs text-gray-500 mt-2">Only PNG, JPG and JPEG files are supported</p>
+                                <div class="md:col-span-1 bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200">
+                                    <div class="text-center mb-4">
+                                        <p class="text-2xl font-bold">Scan and Pay</p>
+                                        <p class="text-3xl font-extrabold text-green-700 mt-2">₹1,198</p>
+                                    </div>
+                                    <div class="flex justify-center mb-6">
+                                        
+                                        <img src="https://placehold.co/200x200/000/fff?text=UPI+QR+Code" alt="QR Code" class="w-full max-w-xs border-2 border-gray-200 rounded-lg p-2" />
+                                    </div>
+                                    <p class="text-center text-sm font-medium text-gray-600">Scan and pay with any BHIM UPI app</p>
+                                    <div class="flex justify-center space-x-4 mt-4 text-3xl text-gray-500">
+                                        <i class="fab fa-cc-visa"></i>
+                                        <i class="fab fa-google-pay"></i>
+                                        <i class="fab fa-amazon-pay"></i>
+                                        
+                                    </div>
+                                </div>
+
                                 
-                                  <button type="button" onclick="submitBooking()" id="submit-screenshot-btn" class="w-full mt-6 px-6 py-3 bg-blue-700 text-white font-bold rounded-md shadow-lg hover:bg-blue-800 transition duration-150 disabled:bg-gray-400" disabled>
-                                      Submit Screenshot
-                                  </button>
-                              </div>
-                          </div>
+                                <div class="md:col-span-1 bg-gray-50 p-6 rounded-lg shadow-lg border-2 border-gray-200 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-4">Final Breakup</h3>
+                                        <div class="space-y-2 text-lg">
+                                            <div class="flex justify-between">
+                                                <span>Base Price</span>
+                                                <span id="base-price">₹998</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>GST (18%)</span>
+                                                <span id="gst-amount">₹179.64</span>
+                                            </div>
+                                            <div class="flex justify-between border-b pb-2">
+                                                <span>Processing Fee (2.036%)</span>
+                                                <span id="processing-fee">₹20.36</span>
+                                            </div>
+                                            <div class="flex justify-between pt-2 text-2xl font-extrabold text-blue-700">
+                                                <span>Total</span>
+                                                <span id="total-amount">₹1,198</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                
+                                <div class="md:col-span-1 bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200">
+                                    <h3 class="text-xl font-bold mb-4">Kindly upload the payment screenshot for complete booking</h3>
+                                   
+                                    <label for="payment-screenshot" id="upload-box" class="border-4 border-dashed border-purple-300 rounded-lg p-8 text-center cursor-pointer hover:bg-purple-50 transition duration-150">
+                                        <p class="text-blue-600 font-semibold mb-2">Click here to upload the screenshot</p>
+                                        <p class="text-xs text-gray-500">(Max. File size: 25 MB)</p>
+                                        <input type="file" id="payment-screenshot" accept="image/png, image/jpeg, image/jpg" class="hidden" onchange="updateUploadBox(this)">
+                                    </label>
+                                    <p class="text-xs text-gray-500 mt-2">Only PNG, JPG and JPEG files are supported</p>
+                                   
+                                    <button type="button" onclick="submitBooking()" id="submit-screenshot-btn" class="w-full mt-6 px-6 py-3 bg-blue-700 text-white font-bold rounded-md shadow-lg hover:bg-blue-800 transition duration-150 disabled:bg-gray-400" disabled>
+                                        Submit Screenshot
+                                    </button>
+                                </div>
+                            </div>
 
+                            <div class="mt-8 flex justify-end">
+                                <button type="button" onclick="prevStep(3)" class="px-6 py-3 bg-gray-500 text-white font-bold rounded-md shadow-lg hover:bg-gray-600 transition duration-150">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-
-                          <div class="mt-8 flex justify-end">
-                              <button type="button" onclick="prevStep(3)" class="px-6 py-3 bg-gray-500 text-white font-bold rounded-md shadow-lg hover:bg-gray-600 transition duration-150">
-                                  <i class="fas fa-arrow-left mr-2"></i> Back
-                              </button>
-                          </div>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </section>
-
-
-
-
-      <!-- Success Confirmation Page --><section id="success-page" class="hidden page-view text-center bg-white p-10 sm:p-20 rounded-lg shadow-xl max-w-2xl mx-auto mt-10">
-          <div class="flex justify-center mb-8">
-              <!-- Large Checkmark Icon --><svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg>
-          </div>
-          <h1 class="text-3xl sm:text-4xl font-extrabold text-green-600 mb-4">
-              धन्यवाद! आपकी HSR Plate बुकिंग सफल हो गई! 🎉
-          </h1>
-          <h2 class="text-2xl sm:text-3xl font-bold text-green-800 mb-8">
-              Thank You! Your HSR Plate Booking is Confirmed 🎉
-          </h2>
-          <p class="text-lg text-gray-700 mb-4 font-semibold">
-              नोट: आपकी बुकिंग सुरक्षित हो गई है। आपका HSR Plate नंबर प्लेट 14–21 दिनों में डिलीवर किया जाएगा।
-          </p>
-          <p class="text-xl text-gray-600 font-semibold">
-              Note: Your booking is secure! Your HSR Plate number plate will be delivered within 14–21 days.
-          </p>
-      </section>
-
-
-
-
-  </main>
-
-
-
-
-  <!-- Footer Section (Based on user's image with links: FAQ, disclaimer, Privacy Policy, etc.) --><footer class="bg-gray-900 text-white mt-10 shadow-inner">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <!-- Links Row --><div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-sm font-medium">
-              <a href="#" class="hover:text-yellow-400 py-1">FAQ</a>
-              <a href="#" class="hover:text-yellow-400 py-1">Disclaimer</a>
-              <a href="#" class="hover:text-yellow-400 py-1">Privacy Policy</a>
-              <a href="#" class="hover:text-yellow-400 py-1">Refund & Cancellation Policy</a>
-              <a href="#" class="hover:text-yellow-400 py-1">Safe & Secure Transaction</a>
-              <a href="#" class="hover:text-yellow-400 py-1">Terms & Conditions</a>
-              <a href="#" class="hover:text-yellow-400 py-1">About</a>
-          </div>
-          <!-- Copyright Line --><div class="text-center text-xs text-gray-500 mt-4">
-              &copy; 2024 BOOK-MY-HSRP. All Rights Reserved.
-          </div>
-      </div>
-  </footer>
-
-
-
-
-  <script>
-      // Data for Indian States and UTs
-      const indianStatesAndUTs = [
-          "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
-          "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra",
-          "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
-          "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal",
-          "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu",
-          "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"
-      ];
-
-
-
-
-      let currentStep = 1;
-
-
-
-
-      // Function to show a temporary message box (replaces alert())
-      function showMessage(message, type = 'error') {
-          const box = document.getElementById('message-box');
-          box.textContent = message;
-          box.classList.remove('hidden', 'bg-red-500', 'bg-green-500');
-          box.classList.add(type === 'error' ? 'bg-red-500' : 'bg-green-500');
         
-          setTimeout(() => {
-              box.classList.add('hidden');
-          }, 3000);
-      }
+        <section id="success-page" class="hidden page-view text-center bg-white p-10 sm:p-20 rounded-lg shadow-xl max-w-2xl mx-auto mt-10">
+            <div class="flex justify-center mb-8">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-green-600 mb-4">
+                धन्यवाद! आपकी HSR Plate बुकिंग सफल हो गई! 🎉
+            </h1>
+            <h2 class="text-2xl sm:text-3xl font-bold text-green-800 mb-8">
+                Thank You! Your HSR Plate Booking is Confirmed 🎉
+            </h2>
+            <p class="text-lg text-gray-700 mb-4 font-semibold">
+                नोट: आपकी बुकिंग सुरक्षित हो गई है। आपका HSR Plate नंबर प्लेट 14–21 दिनों में डिलीवर किया जाएगा।
+            </p>
+            <p class="text-xl text-gray-600 font-semibold">
+                Note: Your booking is secure! Your HSR Plate number plate will be delivered within 14–21 days.
+            </p>
+        </section>
+
+    </main>
+
     
-      // --- Core UI Functions ---
-
-
-
-
-      // Function to show the booking form and hide the homepage
-      function showBookingForm() {
-          document.getElementById('homepage').classList.add('hidden');
-          document.getElementById('booking-page').classList.remove('hidden');
-          updateFormView(); // Initialize step 1 view
-      }
-
-
-
-
-      // Function to update the visible step and sidebar
-      function updateFormView() {
-          // Hide all step content
-          document.querySelectorAll('.form-step').forEach(step => step.classList.add('hidden'));
-        
-          // Show the current step content
-          const currentStepElement = document.getElementById(`step-${currentStep}`);
-          if (currentStepElement) {
-              currentStepElement.classList.remove('hidden');
-          } else {
-              // If somehow currentStep is invalid, reset to 1
-              currentStep = 1;
-              document.getElementById(`step-${currentStep}`).classList.remove('hidden');
-          }
-
-
-
-
-          // Update sidebar appearance
-          document.querySelectorAll('.sidebar-step').forEach(link => {
-              const step = parseInt(link.getAttribute('data-step'));
-              link.classList.remove('active', 'completed');
+    <footer class="bg-gray-900 text-white mt-10 shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             
-              if (step === currentStep) {
-                  link.classList.add('active');
-              } else if (step < currentStep) {
-                  link.classList.add('completed');
-              }
-          });
-      }
-
-
-
-
-      // Function to go to the next step with validation
-      function nextStep(step) {
-          if (step === 1) {
-              // Validate Step 1 form fields
-              const formElement = document.getElementById('step-1');
-              const requiredInputs = formElement.querySelectorAll('[required]');
+            <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 text-sm font-medium">
+                <a href="#" class="hover:text-yellow-400 py-1">FAQ</a>
+                <a href="#" class="hover:text-yellow-400 py-1">Disclaimer</a>
+                <a href="#" class="hover:text-yellow-400 py-1">Privacy Policy</a>
+                <a href="#" class="hover:text-yellow-400 py-1">Refund & Cancellation Policy</a>
+                <a href="#" class="hover:text-yellow-400 py-1">Safe & Secure Transaction</a>
+                <a href="#" class="hover:text-yellow-400 py-1">Terms & Conditions</a>
+                <a href="#" class="hover:text-yellow-400 py-1">About</a>
+            </div>
             
-              let isValid = true;
-              requiredInputs.forEach(input => {
-                  if (!input.value || !input.checkValidity()) {
-                      isValid = false;
-                      input.focus(); // Focus on the first invalid element
-                  }
-              });
+            <div class="text-center text-xs text-gray-500 mt-4">
+                &copy; 2024 BOOK-MY-HSRP. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        // Data for Indian States and UTs
+        const indianStatesAndUTs = [
+            "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
+            "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra",
+            "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
+            "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal",
+            "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu",
+            "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"
+        ];
 
+        let currentStep = 1;
 
+        // Function to show a temporary message box (replaces alert())
+        function showMessage(message, type = 'error') {
+            const box = document.getElementById('message-box');
+            box.textContent = message;
+            box.classList.remove('hidden', 'bg-red-500', 'bg-green-500');
+            box.classList.add(type === 'error' ? 'bg-red-500' : 'bg-green-500');
+           
+            setTimeout(() => {
+                box.classList.add('hidden');
+            }, 3000);
+        }
+       
+        // --- Core UI Functions ---
 
-              if (!isValid) {
-                  // Error Message (English)
-                  showMessage("Please fill in all mandatory fields. Registration No., Chassis No., and Engine No. must contain at least 5 characters.", 'error');
-                  return;
-              }
-              currentStep = 2;
-          } else if (step === 2) {
-              // Validate Step 2 form fields
-              const formElement = document.getElementById('step-2');
-              const requiredInputs = formElement.querySelectorAll('[required]');
+        // Function to show the booking form and hide the homepage
+        function showBookingForm() {
+            document.getElementById('homepage').classList.add('hidden');
+            document.getElementById('booking-page').classList.remove('hidden');
+            updateFormView(); // Initialize step 1 view
+        }
+
+        // Function to update the visible step and sidebar
+        function updateFormView() {
+            // Hide all step content
+            document.querySelectorAll('.form-step').forEach(step => step.classList.add('hidden'));
+           
+            // Show the current step content
+            const currentStepElement = document.getElementById(`step-${currentStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            } else {
+                // If somehow currentStep is invalid, reset to 1
+                currentStep = 1;
+                document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+            }
+
+            // Update sidebar appearance
+            document.querySelectorAll('.sidebar-step').forEach(link => {
+                const step = parseInt(link.getAttribute('data-step'));
+                link.classList.remove('active', 'completed');
+               
+                if (step === currentStep) {
+                    link.classList.add('active');
+                } else if (step < currentStep) {
+                    link.classList.add('completed');
+                }
+            });
+        }
+
+        // Function to go to the next step with validation
+        function nextStep(step) {
+            if (step === 1) {
+                // Validate Step 1 form fields
+                const formElement = document.getElementById('step-1');
+                const requiredInputs = formElement.querySelectorAll('[required]');
+               
+                let isValid = true;
+                requiredInputs.forEach(input => {
+                    if (!input.value || !input.checkValidity()) {
+                        isValid = false;
+                        input.focus(); // Focus on the first invalid element
+                    }
+                });
+
+                if (!isValid) {
+                    // Error Message (English)
+                    showMessage("Please fill in all mandatory fields. Registration No., Chassis No., and Engine No. must contain at least 5 characters.", 'error');
+                    return;
+                }
+                currentStep = 2;
+            } else if (step === 2) {
+                // Validate Step 2 form fields
+                const formElement = document.getElementById('step-2');
+                const requiredInputs = formElement.querySelectorAll('[required]');
+               
+                let isValid = true;
+                requiredInputs.forEach(input => {
+                    if (!input.value || !input.checkValidity()) {
+                        isValid = false;
+                        input.focus();
+                    }
+                });
+
+                if (!isValid) {
+                    showMessage("Please fill in all your personal information fields.", 'error');
+                    return;
+                }
+                // Mock data update for summary step
+                currentStep = 3;
+            }
+            updateFormView();
+        }
+
+        // Function to go to the previous step
+        function prevStep(step) {
+            if (step > 1) {
+                currentStep = step - 1;
+            }
+            updateFormView();
+        }
+       
+        // Function to handle the file upload box interaction
+        function updateUploadBox(input) {
+            const uploadBox = document.getElementById('upload-box');
+            const submitBtn = document.getElementById('submit-screenshot-btn');
+           
+            if (input.files && input.files.length > 0) {
+                // Show file name and enable button
+                uploadBox.innerHTML = `<p class="text-green-600 font-semibold mb-2">File Selected: ${input.files[0].name}</p><p class="text-xs text-gray-500">(Click to change)</p>`;
+                uploadBox.classList.remove('border-purple-300');
+                uploadBox.classList.add('border-green-500');
+                submitBtn.disabled = false;
+            } else {
+                // Show prompt and disable button
+                uploadBox.innerHTML = `<p class="text-blue-600 font-semibold mb-2">Click here to upload the screenshot</p><p class="text-xs text-gray-500">(Max. File size: 25 MB)</p>`;
+                uploadBox.classList.remove('border-green-500');
+                uploadBox.classList.add('border-purple-300');
+                submitBtn.disabled = true;
+            }
+        }
+       
+        // Function to simulate final booking
+        function submitBooking() {
+            // In a real application, you would send the form data and screenshot here.
             
-              let isValid = true;
-              requiredInputs.forEach(input => {
-                  if (!input.value || !input.checkValidity()) {
-                      isValid = false;
-                      input.focus();
-                  }
-              });
+            // Simulation: Hide current page and show success page
+            document.getElementById('booking-page').classList.add('hidden');
+            document.getElementById('success-page').classList.remove('hidden');
+            showMessage("Booking Submitted Successfully! Redirecting to confirmation page.", 'success');
+        }
 
+        // Function to populate the state dropdown
+        function populateStates() {
+            const select = document.getElementById('state');
+            if (select) {
+                indianStatesAndUTs.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state;
+                    option.textContent = state;
+                    select.appendChild(option);
+                });
+            }
+        }
 
-
-
-              if (!isValid) {
-                  showMessage("Please fill in all your personal information fields.", 'error');
-                  return;
-              }
-              // Mock data update for summary step
-              currentStep = 3;
-          }
-          updateFormView();
-      }
-
-
-
-
-      // Function to go to the previous step
-      function prevStep(step) {
-          if (step > 1) {
-              currentStep = step - 1;
-          }
-          updateFormView();
-      }
-    
-      // Function to handle the file upload box interaction
-      function updateUploadBox(input) {
-          const uploadBox = document.getElementById('upload-box');
-          const submitBtn = document.getElementById('submit-screenshot-btn');
-        
-          if (input.files && input.files.length > 0) {
-              // Show file name and enable button
-              uploadBox.innerHTML = `<p class="text-green-600 font-semibold mb-2">File Selected: ${input.files[0].name}</p><p class="text-xs text-gray-500">(Click to change)</p>`;
-              uploadBox.classList.remove('border-purple-300');
-              uploadBox.classList.add('border-green-500');
-              submitBtn.disabled = false;
-          } else {
-              // Show prompt and disable button
-              uploadBox.innerHTML = `<p class="text-blue-600 font-semibold mb-2">Click here to upload the screenshot</p><p class="text-xs text-gray-500">(Max. File size: 25 MB)</p>`;
-              uploadBox.classList.remove('border-green-500');
-              uploadBox.classList.add('border-purple-300');
-              submitBtn.disabled = true;
-          }
-      }
-    
-      // Function to simulate final booking
+        // Ensure the DOM is fully loaded before executing setup script
+        document.addEventListener('DOMContentLoaded', (event) => {
+            populateStates();
+            // All interactive functions (like showBookingForm) are globally defined and ready to be called by onclick.
+        });
+    </script>
+</body>
+</html>
